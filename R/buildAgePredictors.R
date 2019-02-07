@@ -9,18 +9,18 @@ HorvathAgePred <- function(betas, performBetaChecks = TRUE, trans = anti.trafo, 
 	getAgePredictor(HorvathCoefficients)(betas, performBetaChecks, trans, ...)
 }
 
+
+data(HannumCoefficients)
 #'HannumAgePred
 #'
 #' @export
-#'
-
-data(HannumCoefficients)
 HannumAgePred <- getAgePredictor(HannumCoefficients)
 
+
+data(LevineCoefficients)
 #'LevineAgePred
 #'
 #' @export
-data(LevineCoefficients)
 LevineAgePred <- getAgePredictor(LevineCoefficients)
 
 
