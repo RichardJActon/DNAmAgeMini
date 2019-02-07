@@ -6,7 +6,7 @@ output:
   rmarkdown::html_vignette
 bibliography: "`r system.file('extdata', 'refs.bib', package = 'DNAmAgeMini')`"
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteIndexEntry{Predict DNA methylation Age}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
