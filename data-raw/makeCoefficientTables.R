@@ -6,8 +6,6 @@ library(dplyr)
 #
 ###############################################################################
 
-# setwd("data-raw")
-
 datClock <- read.csv("./inst/extdata/Horvath2013.csv")
 
 datClock <- datClock %>%
@@ -16,8 +14,6 @@ datClock <- datClock %>%
 datClock[1,1] <- "Intercept"
 
 HorvathCoefficients <- datClock
-
-usethis::use_data(HorvathCoefficients, overwrite = TRUE)
 
 ###############################################################################
 #
@@ -30,8 +26,6 @@ LevineCoefficients <-
 	phenoAgeProbeDetails %>%
 	select(probe = CpG, coeff = Weight) %>%
 	mutate(probe = as.character(probe))
-
-usethis::use_data(LevineCoefficients, overwrite = TRUE)
 
 ###############################################################################
 #
@@ -59,5 +53,10 @@ HannumCoefficients <-
 		hannumClockData
 	)
 
-usethis::use_data(HannumCoefficients, overwrite = TRUE)
-
+usethis::use_data(
+	HorvathCoefficients,
+	HannumCoefficients,
+	LevineCoefficients,
+	overwrite = TRUE#,
+	#internal = TRUE
+)
