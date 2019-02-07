@@ -4,7 +4,6 @@ author: "Richard J. Acton"
 date: "`r Sys.Date()`"
 output: 
   rmarkdown::html_vignette
-    df_print: paged
 bibliography: "`r system.file('extdata', 'refs.bib', package = 'DNAmAgeMini')`"
 vignette: >
   %\VignetteIndexEntry{Vignette Title}
@@ -21,6 +20,7 @@ knitr::opts_chunk$set(
 
 ```{r}
 library(ggplot2)
+library(DNAmAgeMini)
 ```
 
 [@Horvath2013]
