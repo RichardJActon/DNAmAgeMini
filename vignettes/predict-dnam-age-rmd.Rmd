@@ -1,0 +1,66 @@
+---
+title: "Predict DNA methylation Age"
+author: "Richard J. Acton"
+date: "`r Sys.Date()`"
+output: 
+  rmarkdown::html_vignette
+    df_print: paged
+bibliography: "`r system.file('extdata', 'refs.bib', package = 'DNAmAgeMini')`"
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r}
+library(ggplot2)
+```
+
+[@Horvath2013]
+
+```{r}
+DNAmAge <- as.data.frame(HorvathAgePred(demoBetas))
+colnames(DNAmAge) <- "DNAmAge"
+```
+
+```{r}
+df <- demoSampleAnnotation[c("Age"), drop = FALSE]
+rownames(df) <- demoSampleAnnotation$id
+
+df <- merge(df,DNAmAge,by = "row.names")
+df$AgeAccel <- ageAccel(df$DNAmAge,df$Age)
+df
+```
+
+```{r,fig.width=5,fig.height=5}
+ggplot(aes(Age,DNAmAge),data=df) + 
+	geom_abline(slope = 1,intercept = 0) + 
+	geom_smooth(method = "lm") +
+	geom_point() + 
+	coord_equal() + 
+	labs(
+		title = "Predicted Vs Chronolgical Age",
+		subtitle = parse(text = paste0(
+			"R^2: ",
+			sprintf(
+				"%.3g",
+				cor(df$Age,df$DNAmAge)**2
+			)
+		))
+	)
+```
+
+# Session Info
+
+```{r}
+sessionInfo()
+```
+
+# References

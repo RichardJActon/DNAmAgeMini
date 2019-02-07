@@ -1,0 +1,4 @@
+#' HannumCoefficients
+#'
+"HannumCoefficients"
+

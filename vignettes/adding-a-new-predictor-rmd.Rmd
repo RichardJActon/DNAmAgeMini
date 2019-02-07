@@ -1,0 +1,61 @@
+---
+title: "Adding a new predictor"
+author: "Richard J. Acton"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+bibliography: "`r system.file('extdata', 'refs.bib', package = 'DNAmAgeMini')`"
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Libraries
+
+```{r}
+library(dplyr)
+library(usethis)
+```
+
+# Coefficient table
+
+Create a coefficient table, a data.frame with a *character* column called `probe`
+and a *numeric* column called `coeff`. 
+
+If the model has an intercept give it the probe name `Intercept`,
+this value is expected so set this to 0 if you don't have one
+
+```{r}
+datClock <- read.csv(system.file("extdata", "Horvath2013.csv", package = "DNAmAgeMini", mustWork = TRUE))
+datClock <- datClock %>% 
+	select(probe = CpGmarker, coeff = CoefficientTraining) %>%
+	mutate(probe = as.character(probe))
+datClock[1,1] <- "Intercept"
+
+HorvathCoefficients <- datClock
+```
+
+```{r}
+HorvathCoefficients
+```
+
+# dev
+
+```{r,eval=FALSE}
+usethis::use_data(HorvathCoefficients)
+```
+
+# Session Info
+
+```{r}
+sessionInfo()
+```
+
+# References

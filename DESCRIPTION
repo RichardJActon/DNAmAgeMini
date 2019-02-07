@@ -1,0 +1,25 @@
+Package: DNAmAgeMini
+Title: What the Package Does (One Line, Title Case)
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Richard",
+           family = "Acton",
+           role = c("aut", "cre"),
+           email = "richardjacton@gmail.com")
+Description: What the package does (one paragraph).
+License: License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Suggests: 
+    knitr,
+    rmarkdown,
+    testthat
+VignetteBuilder: knitr
+RoxygenNote: 6.1.1
+Collate: 
+    'ageAccel.R'
+    'betaChecks.R'
+    'data.R'
+    'transforms.R'
+    'getAgePredictorClosure.R'
+    'buildAgePredictors.R'
