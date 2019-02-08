@@ -74,7 +74,7 @@ betasOK <- function(betas) {
 		return(FALSE)
 	}
 
-	if (!probeRownames(betas)) {
+	if (! (probeRownames(betas) == TRUE)) {
 		pass <- FALSE
 		warning(
 			paste0(
@@ -84,7 +84,7 @@ betasOK <- function(betas) {
 		)
 	}
 
-	if (probeFirstCol(betas)) {
+	if (probeFirstCol(betas) == TRUE) {
 		pass <- FALSE
 		warning(
 			paste0(
@@ -96,18 +96,18 @@ betasOK <- function(betas) {
 		)
 	}
 
-	if (namesFirstRow(betas)) {
+	if (namesFirstRow(betas) == TRUE) {
 		pass <- FALSE
 		warning(
 			paste0(
 				"Looks like first row of your betas object does not contain",
 				" beta values, could it be your column names?\n",
-				paste0(head(unlist(betas[,1])),collapse = ", ")
+				paste0(head(unlist(betas[,1])),collapse = ", "),"...\n"
 			)
 		)
 	}
 
-	if (isBetaMatrix(betas)) {
+	if (isBetaMatrix(betas) == TRUE) {
 		pass <- FALSE
 		warning(
 			paste0(
@@ -117,11 +117,11 @@ betasOK <- function(betas) {
 		)
 	}
 
-	if (!is.numeric(as.matrix(betas))) {
+	if (!all(sapply(demoBetas,is.numeric))) {
 		pass <- FALSE
 		warning(
 			paste0(
-				"Looks Like your Betas object is not a numeric type\n"
+				"Looks Like your Betas object has non-Numeric column(s)\n"
 			)
 		)
 	}
