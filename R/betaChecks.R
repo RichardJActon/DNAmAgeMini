@@ -31,7 +31,9 @@ namesFirstRow <- function(betas) {
 			)
 		)
 	)
-	all(is.na(firstRow)) | any(firstRow > 1 | firstRow < 0)
+	all(is.na(firstRow)) |
+		any(firstRow > 1.5, na.rm = TRUE) |
+		any(firstRow < -0.5, na.rm = TRUE)
 }
 
 #' isBetaMatrix
@@ -39,15 +41,13 @@ namesFirstRow <- function(betas) {
 #' @param betas a potential betas object to check
 #' @return boolean
 isBetaMatrix <- function(betas) {
-	converted <- suppressWarnings(
-		as.double(
-			as.character(
-				as.matrix(betas)
-			)
-		)
-	)
+	converted <-
+	unlist(lapply(betas, function(x) {
+		suppressWarnings(as.double(as.character(x)))
+	}))
 	all(
-		converted <= 1 & converted >= 0,
+		# found some 'wild' betas outside 0-1
+		converted <= 1.5 & converted >= -0.5,
 		na.rm = TRUE
 	)
 }
@@ -74,7 +74,7 @@ betasOK <- function(betas) {
 		return(FALSE)
 	}
 
-	if (! (probeRownames(betas) == TRUE)) {
+	if (probeRownames(betas) == FALSE) {
 		pass <- FALSE
 		warning(
 			paste0(
@@ -91,7 +91,7 @@ betasOK <- function(betas) {
 				"Looks Like you have cg probes in the first column",
 				" of your betas object, please put probe identifiers",
 				" in rownames only\n",
-				paste0(head(betas[1,]),collapse = ", "), "...\n"
+				paste0(head(betas[,1]),collapse = ", "), "...\n"
 			)
 		)
 	}
@@ -102,12 +102,12 @@ betasOK <- function(betas) {
 			paste0(
 				"Looks like first row of your betas object does not contain",
 				" beta values, could it be your column names?\n",
-				paste0(head(unlist(betas[,1])),collapse = ", "),"...\n"
+				paste0(head(unlist(betas[1,],use.names = FALSE)),collapse = ", "),"...\n"
 			)
 		)
 	}
 
-	if (isBetaMatrix(betas) == TRUE) {
+	if (isBetaMatrix(betas) == FALSE) {
 		pass <- FALSE
 		warning(
 			paste0(
