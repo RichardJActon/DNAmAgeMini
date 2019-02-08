@@ -88,7 +88,7 @@ betasOK <- function(betas) {
 		pass <- FALSE
 		warning(
 			paste0(
-				"Looks Like you have cg probes in the first column",
+				"Looks like you have cg probes in the first column",
 				" of your betas object, please put probe identifiers",
 				" in rownames only\n",
 				paste0(head(betas[,1]),collapse = ", "), "...\n"
@@ -117,11 +117,11 @@ betasOK <- function(betas) {
 		)
 	}
 
-	if (!all(sapply(demoBetas,is.numeric))) {
+	if (!all(sapply(betas,is.numeric))) {
 		pass <- FALSE
 		warning(
 			paste0(
-				"Looks Like your Betas object has non-Numeric column(s)\n"
+				"Looks like your Betas object has non-numeric column(s)\n"
 			)
 		)
 	}
