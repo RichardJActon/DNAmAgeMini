@@ -1,3 +1,5 @@
+[![Travis build status](https://travis-ci.org/RichardJActon/DNAmAgeMini.svg?branch=master)](https://travis-ci.org/RichardJActon/DNAmAgeMini)
+
 # DNAmAgeMini
 
 __WARNING: THIS PACKAGE IS A PRE-RELEASE WORK IN PROGRESS__
