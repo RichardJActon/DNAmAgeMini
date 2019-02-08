@@ -9,7 +9,7 @@ getAgePredictor <- function(coeffs) {
 	weights <- coeffs[
 		-which(rownames(coeffs) == "Intercept"),
 		"coeff",
-		drop=FALSE
+		drop = FALSE
 		]
 
 	AgePredictor <- function(
@@ -42,6 +42,7 @@ getAgePredictor <- function(coeffs) {
 				)
 			}
 
+			weights <- weights[availNames,]
 			preds <- apply(betas,2,function(beta){
 				intercept + sum(beta * weights, na.rm = TRUE)
 			})
@@ -51,6 +52,11 @@ getAgePredictor <- function(coeffs) {
 			preds <- trans(preds)
 		} else if (is.null(trans)) {
 			preds <- preds
+		} else {
+			stop(paste0(
+				"trans must be a function which",
+				" both takes and returns a numeric vector"
+			))
 		}
 
 		return(preds)
